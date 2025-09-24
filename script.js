@@ -1,6 +1,6 @@
-// =====================
-// Demo Cars Initialization
-// =====================
+// ==========================
+// Demo Cars (with local images)
+// ==========================
 let cars = JSON.parse(localStorage.getItem("cars")) || [
   {
     make: "Toyota",
@@ -8,7 +8,7 @@ let cars = JSON.parse(localStorage.getItem("cars")) || [
     year: 2018,
     price: 15000,
     mileage: 45000,
-    image: "https://cdn.pixabay.com/photo/2018/01/29/06/42/car-3112113_1280.jpg"
+    image: "images/toyota.jpg"
   },
   {
     make: "Honda",
@@ -16,7 +16,7 @@ let cars = JSON.parse(localStorage.getItem("cars")) || [
     year: 2020,
     price: 20000,
     mileage: 25000,
-    image: "https://cdn.pixabay.com/photo/2017/02/01/19/33/honda-2030343_1280.jpg"
+    image: "images/honda.jpg"
   },
   {
     make: "Ford",
@@ -24,7 +24,7 @@ let cars = JSON.parse(localStorage.getItem("cars")) || [
     year: 2019,
     price: 30000,
     mileage: 15000,
-    image: "https://cdn.pixabay.com/photo/2016/04/19/11/47/ford-1330664_1280.jpg"
+    image: "images/ford.jpg"
   },
   {
     make: "BMW",
@@ -32,99 +32,90 @@ let cars = JSON.parse(localStorage.getItem("cars")) || [
     year: 2021,
     price: 45000,
     mileage: 12000,
-    image: "https://cdn.pixabay.com/photo/2016/11/29/06/15/bmw-1868874_1280.jpg"
+    image: "images/bmw.jpg"
   }
 ];
 
-// Save demo cars to localStorage if first load
+// Save demo cars to localStorage if none exist
 if (!localStorage.getItem("cars")) {
   localStorage.setItem("cars", JSON.stringify(cars));
 }
 
-// =====================
-// DOM References
-// =====================
-const carForm = document.getElementById("carForm");
-const carsList = document.getElementById("carsList");
-
-// =====================
+// ==========================
 // Render Cars
-// =====================
-function renderCars(filteredCars = cars) {
+// ==========================
+function renderCars(carsToRender = cars) {
+  const carsList = document.getElementById("carsList");
   carsList.innerHTML = "";
-  if (filteredCars.length === 0) {
-    carsList.innerHTML = "<p>No cars match your search.</p>";
+
+  if (carsToRender.length === 0) {
+    carsList.innerHTML = "<p>No cars found.</p>";
     return;
   }
 
-  filteredCars.forEach((car, index) => {
+  carsToRender.forEach((car, index) => {
     const carCard = document.createElement("div");
-    carCard.className = "car-card";
+    carCard.classList.add("car-card");
+
     carCard.innerHTML = `
       <img src="${car.image}" alt="${car.make} ${car.model}">
-      <h3>${car.make} ${car.model} (${car.year})</h3>
-      <p>💰 $${car.price} | 🚗 ${car.mileage} km</p>
-      <button class="delete-btn" onclick="deleteCar(${index})">Delete</button>
+      <h3>${car.make} ${car.model}</h3>
+      <p>Year: ${car.year}</p>
+      <p>Price: $${car.price.toLocaleString()}</p>
+      <p>Mileage: ${car.mileage.toLocaleString()} km</p>
+      <button onclick="deleteCar(${index})">Delete</button>
     `;
+
     carsList.appendChild(carCard);
   });
 }
 
-// =====================
-// Save Cars to LocalStorage
-// =====================
-function saveCars() {
-  localStorage.setItem("cars", JSON.stringify(cars));
-}
-
-// =====================
+// ==========================
 // Add Car
-// =====================
-carForm.addEventListener("submit", (e) => {
+// ==========================
+document.getElementById("carForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  const newCar = {
-    make: document.getElementById("make").value,
-    model: document.getElementById("model").value,
-    year: Number(document.getElementById("year").value),
-    price: Number(document.getElementById("price").value),
-    mileage: Number(document.getElementById("mileage").value),
-    image: document.getElementById("image").value,
-  };
+  const make = document.getElementById("make").value;
+  const model = document.getElementById("model").value;
+  const year = parseInt(document.getElementById("year").value);
+  const price = parseFloat(document.getElementById("price").value);
+  const mileage = parseInt(document.getElementById("mileage").value);
+  const image = document.getElementById("image").value;
+
+  const newCar = { make, model, year, price, mileage, image };
 
   cars.push(newCar);
-  saveCars();
+  localStorage.setItem("cars", JSON.stringify(cars));
+
   renderCars();
-  carForm.reset();
+  this.reset();
 });
 
-// =====================
+// ==========================
 // Delete Car
-// =====================
+// ==========================
 function deleteCar(index) {
   cars.splice(index, 1);
-  saveCars();
+  localStorage.setItem("cars", JSON.stringify(cars));
   renderCars();
 }
 
-// =====================
-// Search & Filter
-// =====================
+// ==========================
+// Filters
+// ==========================
 function applyFilters() {
-  const searchTerm = document.getElementById("searchInput").value.toLowerCase();
-  const minPrice = document.getElementById("minPrice").value;
-  const maxPrice = document.getElementById("maxPrice").value;
+  const search = document.getElementById("searchInput").value.toLowerCase();
+  const minPrice = parseFloat(document.getElementById("minPrice").value) || 0;
+  const maxPrice = parseFloat(document.getElementById("maxPrice").value) || Infinity;
 
-  const filteredCars = cars.filter(car => {
-    const matchesSearch =
-      car.make.toLowerCase().includes(searchTerm) ||
-      car.model.toLowerCase().includes(searchTerm);
-
-    const matchesMinPrice = minPrice ? car.price >= minPrice : true;
-    const matchesMaxPrice = maxPrice ? car.price <= maxPrice : true;
-
-    return matchesSearch && matchesMinPrice && matchesMaxPrice;
-  });
+  const filteredCars = cars.filter(
+    car =>
+      (car.make.toLowerCase().includes(search) ||
+        car.model.toLowerCase().includes(search)) &&
+      car.price >= minPrice &&
+      car.price <= maxPrice
+  );
 
   renderCars(filteredCars);
 }
@@ -133,14 +124,16 @@ function resetFilters() {
   document.getElementById("searchInput").value = "";
   document.getElementById("minPrice").value = "";
   document.getElementById("maxPrice").value = "";
+  document.getElementById("sortSelect").value = "";
   renderCars();
 }
 
-// =====================
+// ==========================
 // Sorting
-// =====================
+// ==========================
 function applySort() {
   const sortValue = document.getElementById("sortSelect").value;
+
   let sortedCars = [...cars];
 
   if (sortValue === "price-asc") {
@@ -156,7 +149,7 @@ function applySort() {
   renderCars(sortedCars);
 }
 
-// =====================
+// ==========================
 // Initial Render
-// =====================
+// ==========================
 renderCars();
