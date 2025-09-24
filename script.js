@@ -1,7 +1,7 @@
 // ==========================
 // Demo Cars (with local images)
 // ==========================
-let cars = JSON.parse(localStorage.getItem("cars")) || [
+let cars = [
   {
     make: "Toyota",
     model: "Corolla",
@@ -36,10 +36,11 @@ let cars = JSON.parse(localStorage.getItem("cars")) || [
   }
 ];
 
-// Save demo cars to localStorage if none exist
-if (!localStorage.getItem("cars")) {
-  localStorage.setItem("cars", JSON.stringify(cars));
-}
+// ==========================
+// Always reset demo cars on load (ignores old localStorage)
+// ==========================
+localStorage.setItem("cars", JSON.stringify(cars));
+cars = JSON.parse(localStorage.getItem("cars"));
 
 // ==========================
 // Render Cars
