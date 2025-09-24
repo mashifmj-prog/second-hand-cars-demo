@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Second-Hand Cars</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🚗 Second-Hand Cars Marketplace</h1>
+  </header>
+
+  <main>
+    <section id="form-section">
+      <h2>Add a Car</h2>
+      <form id="carForm">
+        <input type="text" id="make" placeholder="Make" required>
+        <input type="text" id="model" placeholder="Model" required>
+        <input type="number" id="year" placeholder="Year" required>
+        <input type="number" id="price" placeholder="Price ($)" required>
+        <input type="number" id="mileage" placeholder="Mileage (km)" required>
+        <input type="url" id="image" placeholder="Image URL" required>
+        <button type="submit">Add Car</button>
+      </form>
+    </section>
+
+    <section id="filter-section">
+      <h2>Search & Filter</h2>
+      <input type="text" id="searchInput" placeholder="Search by make or model">
+      <input type="number" id="minPrice" placeholder="Min Price ($)">
+      <input type="number" id="maxPrice" placeholder="Max Price ($)">
+      <button onclick="applyFilters()">Apply Filters</button>
+      <button onclick="resetFilters()">Reset</button
