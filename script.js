@@ -1,5 +1,5 @@
 // ==========================
-// Demo Cars (with local images)
+// Demo Cars (with absolute GitHub image paths)
 // ==========================
 let cars = [
   {
@@ -8,7 +8,7 @@ let cars = [
     year: 2018,
     price: 15000,
     mileage: 45000,
-    image: "images/toyota.jpg"
+    image: "https://mashifmj-prog.github.io/second-hand-cars-demo/images/toyota.jpg"
   },
   {
     make: "Honda",
@@ -16,7 +16,7 @@ let cars = [
     year: 2020,
     price: 20000,
     mileage: 25000,
-    image: "images/honda.jpg"
+    image: "https://mashifmj-prog.github.io/second-hand-cars-demo/images/honda.jpg"
   },
   {
     make: "Ford",
@@ -24,7 +24,7 @@ let cars = [
     year: 2019,
     price: 30000,
     mileage: 15000,
-    image: "images/1-ford.jpg" // ✅ Corrected duplicate issue
+    image: "https://mashifmj-prog.github.io/second-hand-cars-demo/images/1-ford.jpg"
   },
   {
     make: "Ford",
@@ -32,7 +32,7 @@ let cars = [
     year: 2019,
     price: 30000,
     mileage: 12000,
-    image: "images/ford.jpg" // ✅ Properly wrapped
+    image: "https://mashifmj-prog.github.io/second-hand-cars-demo/images/ford.jpg"
   },
   {
     make: "BMW",
@@ -40,7 +40,7 @@ let cars = [
     year: 2021,
     price: 45000,
     mileage: 12000,
-    image: "images/bmw.jpg"
+    image: "https://mashifmj-prog.github.io/second-hand-cars-demo/images/bmw.jpg"
   }
 ];
 
@@ -67,7 +67,7 @@ function renderCars(carsToRender = cars) {
     carCard.classList.add("car-card");
 
     carCard.innerHTML = `
-     <img src="${car.image || 'images/placeholder.jpg'}" alt="${car.make} ${car.model}">
+      <img src="${car.image}" alt="${car.make} ${car.model}" onerror="this.src='https://mashifmj-prog.github.io/second-hand-cars-demo/images/placeholder.jpg'">
       <h3>${car.make} ${car.model}</h3>
       <p>Year: ${car.year}</p>
       <p>Price: $${car.price.toLocaleString()}</p>
@@ -139,26 +139,4 @@ function resetFilters() {
 
 // ==========================
 // Sorting
-// ==========================
-function applySort() {
-  const sortValue = document.getElementById("sortSelect").value;
-
-  let sortedCars = [...cars];
-
-  if (sortValue === "price-asc") {
-    sortedCars.sort((a, b) => a.price - b.price);
-  } else if (sortValue === "price-desc") {
-    sortedCars.sort((a, b) => b.price - a.price);
-  } else if (sortValue === "year-desc") {
-    sortedCars.sort((a, b) => b.year - a.year);
-  } else if (sortValue === "year-asc") {
-    sortedCars.sort((a, b) => a.year - b.year);
-  }
-
-  renderCars(sortedCars);
-}
-
-// ==========================
-// Initial Render
-// ==========================
-renderCars();
+// =====================
