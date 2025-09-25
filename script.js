@@ -26,6 +26,14 @@ let cars = [
     mileage: 15000,
     image: "images/1-ford.jpg"
   },
+
+   make: "Ford",
+    model: "Mustang",
+    year: 2019,
+    price: 30000,
+    mileage: 15000,
+    image: "images/ford.jpg"
+  },
   {
     make: "BMW",
     model: "X3",
@@ -154,5 +162,6 @@ function applySort() {
 // Initial Render
 // ==========================
 renderCars();
+
 
 
