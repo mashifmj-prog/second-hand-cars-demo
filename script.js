@@ -1,5 +1,5 @@
 // ==========================
-// Demo Cars
+// Demo Cars (clean, no duplicates)
 // ==========================
 let cars = [
   {
@@ -23,8 +23,8 @@ let cars = [
     model: "Mustang",
     year: 2019,
     price: 30000,
-    mileage: 12000,
-    image: "images/images/ford-mustang.jpg"
+    mileage: 15000,
+    image: "images/1-ford.jpg"
   },
   {
     make: "BMW",
@@ -36,8 +36,12 @@ let cars = [
   }
 ];
 
-// Reset demo cars on load
-localStorage.setItem("cars", JSON.stringify(cars));
+// ==========================
+// Save to localStorage only if not already set
+// ==========================
+if (!localStorage.getItem("cars")) {
+  localStorage.setItem("cars", JSON.stringify(cars));
+}
 cars = JSON.parse(localStorage.getItem("cars"));
 
 // ==========================
@@ -151,5 +155,3 @@ function applySort() {
 // Initial Render
 // ==========================
 renderCars();
-
-
