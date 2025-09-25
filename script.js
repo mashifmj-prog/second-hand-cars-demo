@@ -24,7 +24,7 @@ let cars = [
     year: 2019,
     price: 30000,
     mileage: 15000,
-    image: "images/1-ford.jpg" // ✅ Corrected duplicate issue
+    image: "https://mashifmj-prog.github.io/second-hand-cars-demo/images/1-ford.jpg" // ✅ Corrected duplicate issue
   },
   {
     make: "Ford",
@@ -86,3 +86,4 @@ document.getElementById("carForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const make = d
+
