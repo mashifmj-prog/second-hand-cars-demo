@@ -24,16 +24,15 @@ let cars = [
     year: 2019,
     price: 30000,
     mileage: 15000,
-    image: "images/ford.jpg" // ✅ corrected duplicate issue
+    image: "images/1-ford.jpg" // ✅ Corrected duplicate issue
   },
-
-    {
+  {
     make: "Ford",
     model: "Mustang",
     year: 2019,
     price: 30000,
     mileage: 12000,
-    image: "images/1-ford.jpg" // ✅ corrected duplicate issue
+    image: "images/ford.jpg" // ✅ Properly wrapped
   },
   {
     make: "BMW",
@@ -67,11 +66,8 @@ function renderCars(carsToRender = cars) {
     const carCard = document.createElement("div");
     carCard.classList.add("car-card");
 
-    // Use placeholder image if none provided
-    const imageSrc = car.image && car.image.trim() !== "" ? car.image : "images/placeholder.jpg";
-
     carCard.innerHTML = `
-      <img src="${imageSrc}" alt="${car.make} ${car.model}">
+     <img src="${car.image || 'images/placeholder.jpg'}" alt="${car.make} ${car.model}">
       <h3>${car.make} ${car.model}</h3>
       <p>Year: ${car.year}</p>
       <p>Price: $${car.price.toLocaleString()}</p>
@@ -89,89 +85,4 @@ function renderCars(carsToRender = cars) {
 document.getElementById("carForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  const make = document.getElementById("make").value;
-  const model = document.getElementById("model").value;
-  const year = parseInt(document.getElementById("year").value);
-  const price = parseFloat(document.getElementById("price").value);
-  const mileage = parseInt(document.getElementById("mileage").value);
-  const image = document.getElementById("image").value;
-
-  // Use placeholder if no image is provided
-  const newCar = { 
-    make, 
-    model, 
-    year, 
-    price, 
-    mileage, 
-    image: image.trim() !== "" ? image : "images/placeholder.jpg" 
-  };
-
-  cars.push(newCar);
-  localStorage.setItem("cars", JSON.stringify(cars));
-
-  renderCars();
-  this.reset();
-});
-
-// ==========================
-// Delete Car
-// ==========================
-function deleteCar(index) {
-  cars.splice(index, 1);
-  localStorage.setItem("cars", JSON.stringify(cars));
-  renderCars();
-}
-
-// ==========================
-// Filters
-// ==========================
-function applyFilters() {
-  const search = document.getElementById("searchInput").value.toLowerCase();
-  const minPrice = parseFloat(document.getElementById("minPrice").value) || 0;
-  const maxPrice = parseFloat(document.getElementById("maxPrice").value) || Infinity;
-
-  const filteredCars = cars.filter(
-    car =>
-      (car.make.toLowerCase().includes(search) ||
-        car.model.toLowerCase().includes(search)) &&
-      car.price >= minPrice &&
-      car.price <= maxPrice
-  );
-
-  renderCars(filteredCars);
-}
-
-function resetFilters() {
-  document.getElementById("searchInput").value = "";
-  document.getElementById("minPrice").value = "";
-  document.getElementById("maxPrice").value = "";
-  document.getElementById("sortSelect").value = "";
-  renderCars();
-}
-
-// ==========================
-// Sorting
-// ==========================
-function applySort() {
-  const sortValue = document.getElementById("sortSelect").value;
-
-  let sortedCars = [...cars];
-
-  if (sortValue === "price-asc") {
-    sortedCars.sort((a, b) => a.price - b.price);
-  } else if (sortValue === "price-desc") {
-    sortedCars.sort((a, b) => b.price - a.price);
-  } else if (sortValue === "year-desc") {
-    sortedCars.sort((a, b) => b.year - a.year);
-  } else if (sortValue === "year-asc") {
-    sortedCars.sort((a, b) => a.year - b.year);
-  }
-
-  renderCars(sortedCars);
-}
-
-// ==========================
-// Initial Render
-// ==========================
-renderCars();
-
+  const make = d
