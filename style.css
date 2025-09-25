@@ -122,3 +122,15 @@ footer {
   background: #f1f1f1;
   margin-top: 2rem;
 }
+
+.car-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  width: 250px;       /* Set a fixed width for all cards */
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  display: inline-block; /* Or use flex/grid on the parent */
+  vertical-align: top;
+  background: #fff;
+}
