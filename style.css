@@ -83,6 +83,28 @@ form button:hover {
 }
 
 .car-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  width: 250px;       /* Fixed width for cards */
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  display: inline-block;
+  vertical-align: top;
+  background: #fff;
+}
+
+/* Add this below to style images inside the cards */
+.car-card img { 
+  width: 100%;      
+  height: auto;     
+  object-fit: cover; 
+  border-radius: 8px; 
+  display: block;      
+}
+
+
+.car-card {
   background: white;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -134,3 +156,4 @@ footer {
   vertical-align: top;
   background: #fff;
 }
+
