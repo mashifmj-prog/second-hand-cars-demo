@@ -24,15 +24,7 @@ let cars = [
     year: 2019,
     price: 30000,
     mileage: 15000,
-    image: "images/1-ford.jpg"
-  },
-
-   make: "Ford",
-    model: "Mustang",
-    year: 2019,
-    price: 30000,
-    mileage: 15000,
-    image: "images/ford.jpg"
+    image: "images/ford.jpg" // ✅ corrected duplicate issue
   },
   {
     make: "BMW",
@@ -66,8 +58,11 @@ function renderCars(carsToRender = cars) {
     const carCard = document.createElement("div");
     carCard.classList.add("car-card");
 
+    // Use placeholder image if none provided
+    const imageSrc = car.image && car.image.trim() !== "" ? car.image : "images/placeholder.jpg";
+
     carCard.innerHTML = `
-     <img src="${car.image || 'images/placeholder.jpg'}" alt="${car.make} ${car.model}">
+      <img src="${imageSrc}" alt="${car.make} ${car.model}">
       <h3>${car.make} ${car.model}</h3>
       <p>Year: ${car.year}</p>
       <p>Price: $${car.price.toLocaleString()}</p>
@@ -92,7 +87,15 @@ document.getElementById("carForm").addEventListener("submit", function (e) {
   const mileage = parseInt(document.getElementById("mileage").value);
   const image = document.getElementById("image").value;
 
-  const newCar = { make, model, year, price, mileage, image };
+  // Use placeholder if no image is provided
+  const newCar = { 
+    make, 
+    model, 
+    year, 
+    price, 
+    mileage, 
+    image: image.trim() !== "" ? image : "images/placeholder.jpg" 
+  };
 
   cars.push(newCar);
   localStorage.setItem("cars", JSON.stringify(cars));
@@ -162,6 +165,3 @@ function applySort() {
 // Initial Render
 // ==========================
 renderCars();
-
-
-
