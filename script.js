@@ -59,7 +59,7 @@ function renderCars(carsToRender = cars) {
     carCard.classList.add("car-card");
 
     carCard.innerHTML = `
-      <img src="${car.image}" alt="${car.make} ${car.model}">
+     <img src="${car.image || 'images/placeholder.jpg'}" alt="${car.make} ${car.model}">
       <h3>${car.make} ${car.model}</h3>
       <p>Year: ${car.year}</p>
       <p>Price: $${car.price.toLocaleString()}</p>
@@ -154,3 +154,4 @@ function applySort() {
 // Initial Render
 // ==========================
 renderCars();
+
