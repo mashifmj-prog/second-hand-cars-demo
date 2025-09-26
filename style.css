@@ -136,3 +136,35 @@ footer {
     width: 100%;
   }
 }
+
+#form-section,
+#filter-section {
+  background-color: #fff;
+  padding: 10px 15px; /* smaller padding */
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  max-width: 500px;   /* limit width */
+  margin-left: auto;
+  margin-right: auto;  /* center on page */
+}
+
+/* Make inputs and button smaller */
+#form-section input,
+#form-section button {
+  padding: 6px;
+  margin: 5px 0;
+  width: 100%;
+  font-size: 0.9em;
+}
+
+#form-section button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+#form-section button:hover {
+  background-color: #218838;
+}
