@@ -1,5 +1,5 @@
 // ==========================
-// Demo Cars
+// Demo Cars (simplest working version)
 // ==========================
 let cars = [
   {
@@ -23,8 +23,8 @@ let cars = [
     model: "Mustang",
     year: 2019,
     price: 30000,
-    mileage: 12000,
-    image: "images/images/ford-mustang.jpg"
+    mileage: 15000,
+    image: "images/ford.jpg" // original working image
   },
   {
     make: "BMW",
@@ -36,7 +36,9 @@ let cars = [
   }
 ];
 
-// Reset demo cars on load
+// ==========================
+// Always reset demo cars on load
+// ==========================
 localStorage.setItem("cars", JSON.stringify(cars));
 cars = JSON.parse(localStorage.getItem("cars"));
 
@@ -96,58 +98,4 @@ document.getElementById("carForm").addEventListener("submit", function (e) {
 // ==========================
 function deleteCar(index) {
   cars.splice(index, 1);
-  localStorage.setItem("cars", JSON.stringify(cars));
-  renderCars();
-}
-
-// ==========================
-// Filters
-// ==========================
-function applyFilters() {
-  const search = document.getElementById("searchInput").value.toLowerCase();
-  const minPrice = parseFloat(document.getElementById("minPrice").value) || 0;
-  const maxPrice = parseFloat(document.getElementById("maxPrice").value) || Infinity;
-
-  const filteredCars = cars.filter(
-    car =>
-      (car.make.toLowerCase().includes(search) ||
-       car.model.toLowerCase().includes(search)) &&
-      car.price >= minPrice &&
-      car.price <= maxPrice
-  );
-
-  renderCars(filteredCars);
-}
-
-function resetFilters() {
-  document.getElementById("searchInput").value = "";
-  document.getElementById("minPrice").value = "";
-  document.getElementById("maxPrice").value = "";
-  document.getElementById("sortSelect").value = "";
-  renderCars();
-}
-
-// ==========================
-// Sorting
-// ==========================
-function applySort() {
-  const sortValue = document.getElementById("sortSelect").value;
-  let sortedCars = [...cars];
-
-  if (sortValue === "price-asc") {
-    sortedCars.sort((a, b) => a.price - b.price);
-  } else if (sortValue === "price-desc") {
-    sortedCars.sort((a, b) => b.price - a.price);
-  } else if (sortValue === "year-desc") {
-    sortedCars.sort((a, b) => b.year - a.year);
-  } else if (sortValue === "year-asc") {
-    sortedCars.sort((a, b) => a.year - b.year);
-  }
-
-  renderCars(sortedCars);
-}
-
-// ==========================
-// Initial Render
-// ==========================
-renderCars();
+  localStorage.setItem("cars", JSON.strin
