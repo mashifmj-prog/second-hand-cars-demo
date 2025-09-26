@@ -31,32 +31,3 @@
         <input type="text" id="model" placeholder="Model" required>
         <input type="number" id="year" placeholder="Year" required>
         <input type="number" id="price" placeholder="Price ($)" required>
-        <input type="number" id="mileage" placeholder="Mileage (km)" required>
-        <input type="url" id="image" placeholder="Image URL" required>
-        <button type="submit">Add Car</button>
-      </form>
-    </section>
-
-    <!-- Search & Filter -->
-    <section id="filter-section">
-      <h2>Search & Filter</h2>
-      <input type="text" id="searchInput" placeholder="Search by make or model">
-      <input type="number" id="minPrice" placeholder="Min Price ($)">
-      <input type="number" id="maxPrice" placeholder="Max Price ($)">
-      <select id="sortSelect" onchange="applySort()">
-        <option value="">Sort By</option>
-        <option value="price-asc">Price: Low → High</option>
-        <option value="price-desc">Price: High → Low</option>
-        <option value="year-desc">Year: Newest First</option>
-        <option value="year-asc">Year: Oldest First</option>
-      </select>
-      <button onclick="applyFilters()">Apply Filters</button>
-      <button onclick="resetFilters()">Reset</button>
-    </section>
-
-    <!-- Cars Display -->
-    <section id="carsList"></section>
-  </main>
-
-  <footer>
-    <
