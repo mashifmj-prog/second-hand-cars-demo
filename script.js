@@ -10,6 +10,11 @@ let cars = [
 localStorage.setItem("cars", JSON.stringify(cars));
 cars = JSON.parse(localStorage.getItem("cars"));
 
+// Helper for currency formatting
+function formatCurrency(amount) {
+  return new Intl.NumberFormat('en-ZA', { style: 'currency', currency: 'ZAR' }).format(amount);
+}
+
 // Render Cars
 function renderCars(carsToRender = cars) {
   const carsList = document.getElementById("carsList");
@@ -28,7 +33,7 @@ function renderCars(carsToRender = cars) {
       <img src="${car.image}" alt="${car.make} ${car.model}">
       <h3>${car.make} ${car.model}</h3>
       <p>Year: ${car.year}</p>
-      <p>Price: $${car.price.toLocaleString()}</p>
+      <p>Price: ${formatCurrency(car.price)}</p>
       <p>Mileage: ${car.mileage.toLocaleString()} km</p>
       <button onclick="deleteCar(${index})">Delete</button>
     `;
