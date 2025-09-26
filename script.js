@@ -24,7 +24,7 @@ let cars = [
     year: 2019,
     price: 30000,
     mileage: 15000,
-    image: "images/ford.jpg" // original working image
+    image: "images/https://github.com/mashifmj-prog/second-hand-cars-demo/blob/main/images/ford-mustang.jpg" // original working image
   },
   {
     make: "BMW",
@@ -99,3 +99,4 @@ document.getElementById("carForm").addEventListener("submit", function (e) {
 function deleteCar(index) {
   cars.splice(index, 1);
   localStorage.setItem("cars", JSON.strin
+
