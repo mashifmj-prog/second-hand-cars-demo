@@ -24,7 +24,7 @@ let cars = [
     year: 2019,
     price: 30000,
     mileage: 15000,
-    image: "images/https://github.com/mashifmj-prog/second-hand-cars-demo/blob/main/images/ford-mustang.jpg" // original working image
+    image: "images/ford.jpg" // original working image
   },
   {
     make: "BMW",
@@ -98,5 +98,58 @@ document.getElementById("carForm").addEventListener("submit", function (e) {
 // ==========================
 function deleteCar(index) {
   cars.splice(index, 1);
-  localStorage.setItem("cars", JSON.strin
+  localStorage.setItem("cars", JSON.stringify(cars));
+  renderCars();
+}
 
+// ==========================
+// Filters
+// ==========================
+function applyFilters() {
+  const search = document.getElementById("searchInput").value.toLowerCase();
+  const minPrice = parseFloat(document.getElementById("minPrice").value) || 0;
+  const maxPrice = parseFloat(document.getElementById("maxPrice").value) || Infinity;
+
+  const filteredCars = cars.filter(
+    car =>
+      (car.make.toLowerCase().includes(search) ||
+       car.model.toLowerCase().includes(search)) &&
+      car.price >= minPrice &&
+      car.price <= maxPrice
+  );
+
+  renderCars(filteredCars);
+}
+
+function resetFilters() {
+  document.getElementById("searchInput").value = "";
+  document.getElementById("minPrice").value = "";
+  document.getElementById("maxPrice").value = "";
+  document.getElementById("sortSelect").value = "";
+  renderCars();
+}
+
+// ==========================
+// Sorting
+// ==========================
+function applySort() {
+  const sortValue = document.getElementById("sortSelect").value;
+  let sortedCars = [...cars];
+
+  if (sortValue === "price-asc") {
+    sortedCars.sort((a, b) => a.price - b.price);
+  } else if (sortValue === "price-desc") {
+    sortedCars.sort((a, b) => b.price - a.price);
+  } else if (sortValue === "year-desc") {
+    sortedCars.sort((a, b) => b.year - a.year);
+  } else if (sortValue === "year-asc") {
+    sortedCars.sort((a, b) => a.year - b.year);
+  }
+
+  renderCars(sortedCars);
+}
+
+// ==========================
+// Initial Render
+// ==========================
+renderCars();
